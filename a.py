@@ -7,48 +7,43 @@ import xlwt, xlrd
 tree = ET.parse('country_data.xml')
 root = tree.getroot()
 
-#Get Attribute Value: 108
+#Get Attribute Value
 # for country in root.findall("."):
 # 	name = country.get("TotalResults")
 # 	print name
 
-#INIT
+# LINK TO PATH
+# path = 'C:\Users\Joshua\Desktop\LocalScripts'
+# ws.write(0, col+3, xlwt.Formula('HYPERLINK("%s";"Link")' % path))
+
+# INIT
 # wb = xlwt.Workbook()
 # ws = wb.add_sheet('A Test Sheet')
 
-# for a, country in enumerate(root.findall("country")):
-# 	name = country.get("name")
+# for a, fetch in enumerate(root.findall("set/test")):
+# 	name = fetch.get("name")
 # 	ws.write(a, 0, name)
+
+# for a, fetch in enumerate(root.findall("set/test2")):
+# 	status = fetch.get("status")
+# 	ws.write(a, 1, status)
 
 # wb.save('example.xls')
 
 #APPEND
+# rb = open_workbook('example.xls',formatting_info=True)
+# wb = copy(rb)
+# ws = wb.get_sheet(0)
+# table = rb.sheet_by_index(0) #Gets the index order
+# col = table.ncols
+# latest_row = table.nrows
 
-rb = open_workbook('example.xls',formatting_info=True)
-wb = copy(rb)
-ws = wb.get_sheet(0)
+# for a, fetch in enumerate(root.findall("set/test")):
+# 	name = fetch.get("name")
+# 	ws.write(a, col, name)
 
-table = rb.sheet_by_index(0) #Gets the index order
+# for a, fetch in enumerate(root.findall("set/test2")):
+# 	status = fetch.get("status")
+# 	ws.write(a, col+1, status)
 
-col = table.ncols
-latest_row = table.nrows
-
-for row in table.col(col-1):
-	old_value = row.value
-
-	for a, neighbor in enumerate(root.findall("country/neighbor")):
-		name = neighbor.get("name")
-
-		if old_value == name:
-			ws.write(a, col+1, name)
-		else:
-			ws.write(latest_row+1, col+1, name)
-
-for a, country in enumerate(root.findall("country")):
-	name = country.get("name")
-	ws.write(a, col, name)
-
-
-wb.save('example.xls')
-
-
+# wb.save('example.xls')
