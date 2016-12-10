@@ -7,35 +7,33 @@ import xlwt, xlrd
 tree = ET.parse('country_data.xml')
 root = tree.getroot()
 
-for country in root.findall("."):
-	name = country.get("TotalResults")
-	print name
-
-
-#INIT
-
-wb = xlwt.Workbook()
-ws = wb.add_sheet('A Test Sheet')
-
-
-for a, country in enumerate(root.findall("country")):
-	name = country.get("name")
-	ws.write(a, 0, name)
-	print name
-
-wb.save('example.xls')
-
-
-#APPEND
-
 rb = open_workbook('example.xls',formatting_info=True)
 wb = copy(rb)
 ws = wb.get_sheet(0)
-ws.write(0, 1, "Sample2")
+
+table = rb.sheet_by_index(0) #Gets the index order
+
+col = table.ncols
+latest_row = table.nrows
+
+for row in table.col(col-1):
+	old_value = row.value
+
+	for a, neighbor in enumerate(root.findall("country/neighbor")):
+		name = neighbor.get("name")
+
+		if old_value == name:
+			ws.write(a, col+1, name)
+		else:
+			ws.write(latest_row+1, col+1, name)
 
 for a, country in enumerate(root.findall("country")):
 	name = country.get("name")
-	ws.write(a, 1, name)
-	print name
+	ws.write(a, col, name)
+
+
+
 
 wb.save('example.xls')
+
+
