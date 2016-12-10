@@ -7,6 +7,23 @@ import xlwt, xlrd
 tree = ET.parse('country_data.xml')
 root = tree.getroot()
 
+#Get Attribute Value: 108
+# for country in root.findall("."):
+# 	name = country.get("TotalResults")
+# 	print name
+
+#INIT
+# wb = xlwt.Workbook()
+# ws = wb.add_sheet('A Test Sheet')
+
+# for a, country in enumerate(root.findall("country")):
+# 	name = country.get("name")
+# 	ws.write(a, 0, name)
+
+# wb.save('example.xls')
+
+#APPEND
+
 rb = open_workbook('example.xls',formatting_info=True)
 wb = copy(rb)
 ws = wb.get_sheet(0)
@@ -30,8 +47,6 @@ for row in table.col(col-1):
 for a, country in enumerate(root.findall("country")):
 	name = country.get("name")
 	ws.write(a, col, name)
-
-
 
 
 wb.save('example.xls')
